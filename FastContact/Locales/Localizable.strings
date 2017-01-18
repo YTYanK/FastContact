@@ -1,0 +1,15 @@
+/* 
+  Localizable.strings
+  FastContact
+
+  Created by YTYanK on 17/1/10.
+  Copyright © 2017年 YTYanK. All rights reserved.
+*/
+
+// NetRequestClss 页面
+"NetRClss3701" = "网络异常，请检查网络设置！";
+"NetRClss3702" = "无法连接,请稍候再试！";
+"NetRClss3703" = "服务器故障，请稍后再试！";
+"NetRClss3704" = "该网页不存在,请检查网络路径! ";
+"NetRClss3705" = "请求超时,请您稍后尝试！";
+"watiting..."  = "加载等待...";

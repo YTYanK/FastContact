@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--NoticeVC-->
+        <scene sceneID="NP2-FL-Uxe">
+            <objects>
+                <viewController storyboardIdentifier="noticeVC" id="FFq-y5-cVV" customClass="NoticeVC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="RQo-TP-zPl"/>
+                        <viewControllerLayoutGuide type="bottom" id="8PI-W1-fhg"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="BrF-mN-mCr">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="hwG-En-fGA">
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="69T-BN-80d">
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="5sq-m1-Jwe"/>
+                                        </constraints>
+                                    </view>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="N8Q-vW-Ths">
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </tableView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="69T-BN-80d" firstAttribute="leading" secondItem="hwG-En-fGA" secondAttribute="leading" id="DbC-sX-RzG"/>
+                                    <constraint firstAttribute="bottom" secondItem="69T-BN-80d" secondAttribute="bottom" id="FBs-fn-zYO"/>
+                                    <constraint firstAttribute="bottom" secondItem="N8Q-vW-Ths" secondAttribute="bottom" id="FwB-u9-laM"/>
+                                    <constraint firstItem="N8Q-vW-Ths" firstAttribute="top" secondItem="hwG-En-fGA" secondAttribute="top" id="UU9-mo-qYA"/>
+                                    <constraint firstItem="69T-BN-80d" firstAttribute="top" secondItem="hwG-En-fGA" secondAttribute="top" id="dS0-8l-CAi"/>
+                                    <constraint firstAttribute="trailing" secondItem="N8Q-vW-Ths" secondAttribute="trailing" id="hx5-37-gOh"/>
+                                    <constraint firstItem="N8Q-vW-Ths" firstAttribute="leading" secondItem="69T-BN-80d" secondAttribute="trailing" constant="5" id="qTI-Un-IzC"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="hwG-En-fGA" firstAttribute="leading" secondItem="BrF-mN-mCr" secondAttribute="leading" id="BB7-UB-LwY"/>
+                            <constraint firstAttribute="trailing" secondItem="hwG-En-fGA" secondAttribute="trailing" id="LGP-cE-c9z"/>
+                            <constraint firstItem="8PI-W1-fhg" firstAttribute="top" secondItem="hwG-En-fGA" secondAttribute="bottom" id="dU1-Oh-y2S"/>
+                            <constraint firstItem="hwG-En-fGA" firstAttribute="top" secondItem="RQo-TP-zPl" secondAttribute="bottom" id="gjm-pR-1sc"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9FV-mg-WLs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="173.59999999999999" y="-64.31784107946028"/>
+        </scene>
+    </scenes>
+</document>

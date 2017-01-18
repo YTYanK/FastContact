@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7TJ-D4-PGJ">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--LoginVC-->
+        <scene sceneID="Rpt-tN-FLs">
+            <objects>
+                <viewController storyboardIdentifier="loginVC" id="Iga-1n-kmm" customClass="LoginVC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="T0r-KP-Ead"/>
+                        <viewControllerLayoutGuide type="bottom" id="uPO-hn-VlO"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="7AO-QY-Myw">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="mwV-kE-0um">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="110" id="JvY-w3-Eio"/>
+                                    <constraint firstAttribute="width" constant="240" id="abT-sE-smp"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="mwV-kE-0um" firstAttribute="centerX" secondItem="7AO-QY-Myw" secondAttribute="centerX" id="6Lf-s6-l1a"/>
+                            <constraint firstItem="mwV-kE-0um" firstAttribute="top" secondItem="T0r-KP-Ead" secondAttribute="bottom" multiplier="8" id="kmr-TO-cEC"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="fBf-5U-ZKr"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gEa-jS-k1m" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-487" y="466"/>
+        </scene>
+        <!--NavigationC-->
+        <scene sceneID="MVg-v7-Hpv">
+            <objects>
+                <navigationController id="7TJ-D4-PGJ" customClass="NavigationC" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Wq4-7s-khl">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Iga-1n-kmm" kind="relationship" relationship="rootViewController" id="alK-el-YCw"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pHz-Ff-mxC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="351" y="466"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="logo.png" width="480" height="220"/>
+    </resources>
+</document>
