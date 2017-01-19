@@ -62,6 +62,7 @@ typedef enum : NSUInteger {
 #import "MBProgressHUD.h"
 
 
+#import "UIView+Additional.h"
 #import "UIImage+Extension.h"
 #import "UIView+Extension.h"
 #import "UIBarButtonItem+Extension.h"

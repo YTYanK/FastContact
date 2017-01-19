@@ -8,7 +8,7 @@
 
 #import "MailListVC.h"
 #import "AddressBookModel.h"
-
+#import "PersonalVC.h"
 
 @interface MailListVC ()<UISearchResultsUpdating,UISearchBarDelegate,UISearchResultsUpdating>
 {
@@ -111,8 +111,9 @@ static NSString *const reuseIdentifier = @"MailCell";
 
 #pragma mark TableViewDelegate Methods
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-   // [_mailSearchController.searchBar resignFirstResponder];
-    
+    PersonalVC *personal = [[PersonalVC alloc] initWithNibName:@"PersonalVC" bundle:nil];
+    personal.personalSign = @"details";
+    [self.navigationController pushViewController:personal animated:YES];
 }
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {

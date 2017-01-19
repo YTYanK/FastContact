@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol HeadViewDelegate <NSObject>
+- (void)headViewPortraitForImageView:(UIImageView *)view;
+@end
+
 @interface HeadView : UIView
-
-
+@property (weak, nonatomic) id <HeadViewDelegate>delegate;
 @end

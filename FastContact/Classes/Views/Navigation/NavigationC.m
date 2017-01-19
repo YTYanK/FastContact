@@ -87,11 +87,11 @@
     if (self.viewControllers.count > 0) {
         viewController.hidesBottomBarWhenPushed = YES;
         // 设置导航栏
-     //   UINavigationItem *vcBtnItem = [viewController navigationItem];
+    //    UINavigationItem *vcBtnItem = [viewController navigationItem];
         
    // vcBtnItem.leftBarButtonItem = [UIBarButtonItem BarButtonItemWithImageName:@"navigationbar_back_withtext" highImageName:@"navigationbar_back_withtext_highlighted" title:[[self.childViewControllers lastObject] title] target:self action:@selector(back)];
     
-  //  vcBtnItem.leftBarButtonItem = [UIBarButtonItem BarButtonItemWithImageName:@"返回" highImageName:@"返回" title:@"" target:self action:@selector(back)];//navigationbar_back_withtext_highlighted  -navigationbar_back_withtext
+   //  vcBtnItem.leftBarButtonItem = [UIBarButtonItem BarButtonItemWithImageName:@"返回" highImageName:@"返回" title:@"" target:self action:@selector(back)];//navigationbar_back_withtext_highlighted  -navigationbar_back_withtext
         
     }
     [super pushViewController:viewController animated:YES];

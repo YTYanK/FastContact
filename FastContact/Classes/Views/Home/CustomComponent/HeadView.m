@@ -47,7 +47,9 @@
 }
 
 - (void)headPortraitClick:(UIImageView *)view {
-    NSLog(@"－－－>头像");
+    if ([self.delegate respondsToSelector:@selector(headViewPortraitForImageView:)]) {
+         [self.delegate headViewPortraitForImageView:view];
+    }
 }
 
 - (IBAction)checkinClick:(id)sender {

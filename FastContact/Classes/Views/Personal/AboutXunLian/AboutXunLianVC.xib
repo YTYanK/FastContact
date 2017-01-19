@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AboutXunLianVC">
+            <connections>
+                <outlet property="RQ_View" destination="7aN-St-gbN" id="0DW-fV-5N3"/>
+                <outlet property="contentView" destination="8vx-mF-RwC" id="SrQ-uD-WyL"/>
+                <outlet property="content_ViewH" destination="fV3-Vg-Nex" id="N1h-bb-BK6"/>
+                <outlet property="rq_ViewH" destination="j0x-3K-z4y" id="dTE-oQ-bH9"/>
+                <outlet property="rq_imageH" destination="oQc-58-5dl" id="B79-cD-EbG"/>
+                <outlet property="rq_imageW" destination="gaz-mE-1Hs" id="aIE-aW-IeN"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7aN-St-gbN">
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_qr_code.png" translatesAutoresizingMaskIntoConstraints="NO" id="9cI-hy-ZP8">
+                            <constraints>
+                                <constraint firstAttribute="width" constant="79" id="gaz-mE-1Hs"/>
+                                <constraint firstAttribute="height" constant="79" id="oQc-58-5dl"/>
+                            </constraints>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="9cI-hy-ZP8" firstAttribute="centerY" secondItem="7aN-St-gbN" secondAttribute="centerY" id="MGU-ax-dbO"/>
+                        <constraint firstItem="9cI-hy-ZP8" firstAttribute="centerX" secondItem="7aN-St-gbN" secondAttribute="centerX" id="ikC-Rh-Qwp"/>
+                        <constraint firstAttribute="height" constant="106" id="j0x-3K-z4y"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8vx-mF-RwC">
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="广东讯联联通科技股份有限公司" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YZf-rw-HCE">
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="0.3411764705882353" green="0.34509803921568627" blue="0.34901960784313724" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="        广州讯联通信股份有限公司（简称“讯联科技”。股改原名：广州讯联实业通信工程有限公司）是讯联集团旗下专注通信领域、以通信网络维护、建设和网络优化为主的品牌企业。" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UBu-Xv-sMR">
+                            <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
+                            <color key="textColor" red="0.3411764706" green="0.34509803919999998" blue="0.34901960780000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="UBu-Xv-sMR" firstAttribute="leading" secondItem="8vx-mF-RwC" secondAttribute="leading" constant="8" id="B7W-nj-4Xz"/>
+                        <constraint firstItem="YZf-rw-HCE" firstAttribute="top" secondItem="8vx-mF-RwC" secondAttribute="top" constant="8" id="BzN-6f-bGf"/>
+                        <constraint firstItem="UBu-Xv-sMR" firstAttribute="top" secondItem="YZf-rw-HCE" secondAttribute="bottom" id="LJe-gd-K5v"/>
+                        <constraint firstItem="UBu-Xv-sMR" firstAttribute="height" secondItem="8vx-mF-RwC" secondAttribute="height" multiplier="0.745" id="OwM-mo-htS"/>
+                        <constraint firstAttribute="height" constant="147" id="fV3-Vg-Nex"/>
+                        <constraint firstAttribute="trailing" secondItem="UBu-Xv-sMR" secondAttribute="trailing" constant="8" id="vsH-eY-mhU"/>
+                        <constraint firstAttribute="trailing" secondItem="YZf-rw-HCE" secondAttribute="trailing" id="zRK-V6-FWe"/>
+                        <constraint firstItem="YZf-rw-HCE" firstAttribute="leading" secondItem="8vx-mF-RwC" secondAttribute="leading" id="zx0-vQ-Ng0"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.83137254901960789" green="0.83529411764705885" blue="0.83529411764705885" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="7aN-St-gbN" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="4" id="1vA-eH-ktI"/>
+                <constraint firstItem="8vx-mF-RwC" firstAttribute="top" secondItem="7aN-St-gbN" secondAttribute="bottom" constant="4" id="3fC-MR-jRG"/>
+                <constraint firstItem="8vx-mF-RwC" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="F4Q-wN-Sx9"/>
+                <constraint firstAttribute="trailing" secondItem="7aN-St-gbN" secondAttribute="trailing" id="jYY-9A-2xj"/>
+                <constraint firstItem="7aN-St-gbN" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="vpO-g3-dV1"/>
+                <constraint firstAttribute="trailing" secondItem="8vx-mF-RwC" secondAttribute="trailing" id="zAx-xd-GjF"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <point key="canvasLocation" x="111.5" y="143.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="ic_qr_code.png" width="1280" height="1280"/>
+    </resources>
+</document>
