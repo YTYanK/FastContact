@@ -9,12 +9,21 @@
 #import <UIKit/UIKit.h>
 
 @class BaseListModel;
+@class SecCategoryListModel;
 
 @interface VariableInletVC : UIViewController
 /*
  标记
  */
 @property (strong, nonatomic) NSString *inletSign;
+
 @property (strong, nonatomic) NSArray <BaseListModel*> *baseList;
+/// 按钮块集
+@property (strong, nonatomic) NSMutableArray *buttonBlockViewAry;
+/*
+ 初始化数据
+ */
+
+- (void)initVariableInletViewForBtnData:(NSArray *)data;
 
 @end

@@ -22,7 +22,10 @@ static NSString * const kFC_TM_Sign = @"TaskManagement";
  *  请假审批标签
  */
 static NSString * const kFC_LEA_Sign = @"LeaveExaminationAndApproval";
-
+/**
+ * 运行维护下级标签
+ */
+static NSString * const kFC_SOM_Sign = @"SubordinateOperationMaintenance";
 
 
 // 跳转 标记

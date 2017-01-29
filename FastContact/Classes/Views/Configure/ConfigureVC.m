@@ -10,6 +10,7 @@
 #import "PersonalCell.h"
 #import "AboutXunLianVC.h"
 #import "ModifyPasswordVC.h"
+#import "LoginVC.h"
 
 @interface ConfigureVC () <PersonalCellDelegate>
 
@@ -61,6 +62,7 @@
     
     UIButton * but  = [[UIButton alloc] initWithFrame:CGRectMake(16, 120, SCREEN_WIDTH - 16*2, 44)];
     [but setTitle:@"退出当前账号" forState:UIControlStateNormal];
+    [but addTarget:self action:@selector(exitCurrentAccount:) forControlEvents:UIControlEventTouchUpInside];
     [but setTintColor:[UIColor whiteColor]];
     [but setBackgroundColor:[UIColor orangeColor]];
     but.layer.cornerRadius = 5.f;
@@ -103,6 +105,35 @@
     }
 }
 
+- (void)exitCurrentAccount:(UIButton *)btn {
+    NSLog(@"退出");
+    NSDictionary  *inter = FC_DIC(@"Login/LogOut",kFC_URL,[NSNumber numberWithInt:-1],kFC_NetMethod,[NSNumber numberWithInt:2],kFC_Trans,nil);
+    //NSDictionary  *param = FC_DIC(@"",@"UserId",nil);
+    [InterfaceViewModel sharedInterfaceViewModel].loading = true;
+    [InterfaceViewModel requestWithObj:self Interface:inter andParam:nil success:^(id model) {
+        //dataTransfer = model;
+     //   [self performSegueWithIdentifier:@"goToPublic" sender:self];
+     
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Login" bundle:nil];
+        LoginVC *lvc = [storyboard instantiateInitialViewController];
+        UIWindow *window = [UIApplication sharedApplication].keyWindow;
+        [self presentViewController:lvc animated:YES completion:^{
+            window.rootViewController = lvc;
+            [NSUD removeObjectForKey:kFC_SessionID];
+            [NSUD removeObjectForKey:kFC_UserId];
+            [NSUD removeObjectForKey:kFC_LoginName];
+            [NSUD removeObjectForKey:kFC_DeviceID];
+            [NSUD removeObjectForKey:@"OperationMaintenance"];
+        }];
+
+        
+    } failure:^(NSString *mag) {
+        [MBProgressHUD yty_showErrorWithTitle:nil detailsText:mag toView:self.view];
+    }];
+
+    
+    
+}
 /*
 #pragma mark - Navigation
 

@@ -8,8 +8,7 @@
 
 #import "HomeVC.h"
 #import "HomeHeader.h"
-
-
+#import "WorkOrderVC.h"
 
 @interface HomeVC ()<ContentViewDelegate,HeadViewDelegate>
 {
@@ -86,10 +85,11 @@
 - (void)buttonListClickWithView:(UIView *)view forButton:(UIButton *)sender {
     if (sender.tag == 1) {
           homeInletSign = kFC_OM_Sign;
-        if ([NSUD objectForKey:homeInletSign] != nil) {
-            homeInletSign = kFC_OM_Sign;
-            [self performSegueWithIdentifier:@"goToPublic" sender:self];
-        }else {
+      // 判断用于缓解重复请求的压力
+         // if ([NSUD objectForKey:homeInletSign] != nil) {
+            
+             [self performSegueWithIdentifier:@"goToPublic" sender:self];
+    /*   // }else {
             NSDictionary  *inter = FC_DIC(@"Common/BaseList",kFC_URL,[NSNumber numberWithInt:-1],kFC_NetMethod,[NSNumber numberWithInt:2],kFC_Trans,nil);
             NSDictionary  *param = FC_DIC([NSNumber numberWithInt:1],@"Page",[NSNumber numberWithInt:100],@"PageSize",@"WorkCategory1",@"Entity",@"WorkIndex",@"FieldName",nil);
             [InterfaceViewModel sharedInterfaceViewModel].loading = true;
@@ -97,12 +97,13 @@
                 dataTransfer = model;
                 [self performSegueWithIdentifier:@"goToPublic" sender:self];
                 
-                [NSUD setObject:@"goTo" forKey:homeInletSign];
+              //  [NSUD setObject:@"goTo" forKey:homeInletSign];
             } failure:^(NSString *mag) {
                 [MBProgressHUD yty_showErrorWithTitle:nil detailsText:mag toView:self.view];
             }];
    
-        }
+       // }*/
+    
     }
     
     if (sender.tag == 2) {

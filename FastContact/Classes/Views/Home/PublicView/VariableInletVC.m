@@ -8,9 +8,13 @@
 
 #import "VariableInletVC.h"
 #import "ButtonBlockView.h"
-#import "BaseListModel.h"
+#import "WorkOrderVC.h"
 
-@interface VariableInletVC ()
+#import "BaseListModel.h"
+#import "SecCategoryListModel.h"
+
+
+@interface VariableInletVC ()<ButtonBlockDelage>
 
 @end
 
@@ -18,6 +22,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //测试
+     [self performSegueWithIdentifier:@"goToWorkOrder" sender:self];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -38,11 +44,10 @@
     CGFloat spacingC = 5;   // 控制中间间距
     
     int tally = 0;
-    if (self.baseList.count != 0) {
-       tally = (int)self.baseList.count;
-    }else {
-        tally = (int)data.count;
+    if (data.count != 0) { //self.baseList.count
+       tally = (int)data.count;
     }
+    
     NSUInteger tally2 = 0;
     int  hNum =  round(tally/2.0);
     for (int i = 0; i < hNum; i++) { //行 ＊3
@@ -55,12 +60,13 @@
                                                                                       (i==0 ? spacingH*(i +1) : fs*i+spacingH) + h*i,
                                                                                       w - spacingW*2 + spacingC,
                                                                                       h)];
-            if (self.baseList.count != 0) {
-                view.text = [[self.baseList objectAtIndex:tally2] name];
-            }else {
+            view.tag = tally2;
+            view.delage = self;
+            if (data.count != 0) {
+               // view.text = [[self.baseList objectAtIndex:tally2] name];
                 view.text = [data objectAtIndex:tally2];
             }
-            
+            [self.buttonBlockViewAry addObject:view];
             [self.view addSubview:view];
             
             if (hNum == i+1) {
@@ -76,7 +82,20 @@
 
 - (void)setBaseList:(NSArray<BaseListModel *> *)baseList{
     _baseList = baseList;
-    [self initVariableInletViewForBtnData:nil];
+    
+    NSMutableArray * ary = [NSMutableArray array];
+    for (BaseListModel *model in baseList) {
+        [ary addObject:[model name]];
+    }
+    
+    [self initVariableInletViewForBtnData:ary];
+    
+    for (int i = 0; i<_buttonBlockViewAry.count; i++) {
+        BaseListModel  *model    = _baseList[i];
+      ButtonBlockView * view   =  _buttonBlockViewAry[i];
+        view.tag = [[model value] integerValue];
+    }
+    
 }
 
 - (void)setInletSign:(NSString *)inletSign {
@@ -85,23 +104,80 @@
         
         if ([inletSign isEqualToString:@"TaskManagement"]) {
             [self initVariableInletViewForBtnData:@[@"超时工单提醒",@"抢单池",@"临时任务"]];
-        }else {
+        }else if([inletSign isEqualToString:@"ubordinateOperationMaintenance"]) {
             [self initVariableInletViewForBtnData:@[@"我的申请",@"我的审批"]];
+        }else {
+            
         }
+    }
         
+}
+
+#pragma mark - ButtonBlockDelage
+
+- (void)clickBlockButton:(ButtonBlockView *)block {
+     NSLog(@"--->%ld--->%@",(long)block.tag,block.text);
+    if ([self.inletSign isEqualToString:@"SubordinateOperationMaintenance"]) {
         
+//        NSDictionary  *inter = FC_DIC(@"Task/List",kFC_URL,[NSNumber numberWithInt:-1],kFC_NetMethod,[NSNumber numberWithInt:2],kFC_Trans,nil);
+//        NSDictionary  *param = FC_DIC([NSNumber numberWithInt:1],@"Page",[NSNumber numberWithInt:100],@"PageSize",[NSNumber numberWithInteger:block.tag],@"Seccategory",@"",@"taskstatus",@"",@"endTime",@"",@"startTime",nil);
+//        [InterfaceViewModel sharedInterfaceViewModel].loading = true;
+//        [InterfaceViewModel requestWithObj:self Interface:inter andParam:param success:^(id model) {
+            // SecCategoryListModel *secc  = model;
+            [self performSegueWithIdentifier:@"goToWorkOrder" sender:self];
+            
+            
+//        } failure:^(NSString *mag) {
+//            [MBProgressHUD yty_showErrorWithTitle:nil detailsText:mag toView:self.view];
+//        }];
+ 
+    }else {
+        NSDictionary  *inter = FC_DIC(@"Task/SecCategoryList",kFC_URL,[NSNumber numberWithInt:-1],kFC_NetMethod,[NSNumber numberWithInt:2],kFC_Trans,nil);
+        NSDictionary  *param = FC_DIC([NSNumber numberWithInt:1],@"Page",[NSNumber numberWithInt:100],@"PageSize",[NSNumber numberWithInteger:block.tag],@"WorkIndex",nil);
+        [InterfaceViewModel sharedInterfaceViewModel].loading = true;
+        [InterfaceViewModel requestWithObj:self Interface:inter andParam:param success:^(id model) {
+          // SecCategoryListModel *secc  = model;
+        UIStoryboard * story = [UIStoryboard storyboardWithName:@"Public" bundle:nil];
+        VariableInletVC *inlet = [story instantiateViewControllerWithIdentifier:@"variableInletVC"];
+        inlet.inletSign = @"SubordinateOperationMaintenance";
+            
+            NSMutableArray *ary = [NSMutableArray array];
+            for (SecCategoryListModel *se in model) {
+                [ary addObject:[se seccategoryname]];
+            }
+            [inlet initVariableInletViewForBtnData:ary];
+            
+            for (int i = 0; i<inlet.buttonBlockViewAry.count; i++) {
+                SecCategoryListModel  *list    = model[i];
+                ButtonBlockView * view   = inlet.buttonBlockViewAry[i];
+                view.tag = [[list seccategory] integerValue];
+            }
+            [self.navigationController pushViewController:inlet animated:YES];
+
+      
+        } failure:^(NSString *mag) {
+            [MBProgressHUD yty_showErrorWithTitle:nil detailsText:mag toView:self.view];
+        }];
     }
 }
 
 
-/*
+#pragma mark - get 
+- (NSMutableArray *)buttonBlockViewAry {
+    if (_buttonBlockViewAry == nil) {
+        _buttonBlockViewAry = [NSMutableArray array];
+    }
+    return _buttonBlockViewAry;
+}
+
+
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if ([segue.identifier compare:@"goToWorkOrder"] == NO) {
+        id vc = segue.destinationViewController;
+       // [vc setValue:dataTransfer forKey:@"baseList"];
+    }
 }
-*/
 
 @end

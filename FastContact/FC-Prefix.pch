@@ -22,7 +22,9 @@
 // http://120.76.26.133:8081/外网
 
 #define CHEATS_IP  [[NSUserDefaults standardUserDefaults] objectForKey:@"CheatsVlue"]
-#define IP  (CHEATS_IP == nil) ? @"http://192.168.5.119:65/" : [NSString stringWithFormat:@"%@",CHEATS_IP]  //默认是测试
+//#define IP  (CHEATS_IP == nil) ? @"http://120.76.26.133:8081/" : [NSString stringWithFormat:@"%@",CHEATS_IP]  //默认是测试
+#define IP @" http://120.76.26.133:8081/"
+
 /* 接口连接头部
  */
 //#define IPHEAD [IP stringByAppendingString:@":8080/icontrol/"]

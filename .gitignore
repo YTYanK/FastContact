@@ -17,3 +17,41 @@ bin-release/
 # Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
 # should NOT be excluded as they contain compiler settings and other important
 # information for Eclipse / Flash Builder.
+
+FastContact.xcodeproj/project.xcworkspace/xcuserdata/ytyank.xcuserdatad/UserInterfaceState.xcuserstate
+
+*.xcuserstate
+
+FastContact/Classes/Views/UIBarButtonItem+Extension.m
+
+FastContact/Classes/Views/NSString+Extension.m
+
+FastContact/Classes/Views/NSString+Extension.m
+
+FastContact/Classes/Views/UIBarButtonItem+Extension.h
+
+FastContact/Classes/Views/UIImage+Extension.h
+
+FastContact/Classes/Views/UIBarButtonItem+Extension.h
+
+*.h
+
+FastContact/Classes/Views/UIBarButtonItem+Extension.h
+
+*.m
+
+FastContact/Classes/Views/UIImage+Extension.h
+
+FastContact/Classes/Views/UIView+Extension.h
+
+FastContact/Classes/Views/UIImage+Extension.m
+
+FastContact/Classes/Views/UIImage+Extension.h
+
+FastContact/Classes/Views/UIImage+Extension.h
+
+FastContact/Classes/Views/UIView+Extension.h
+
+FastContact/Classes/Views/UIBarButtonItem+Extension.m
+
+FastContact/Classes/Views/NSString+Extension.m

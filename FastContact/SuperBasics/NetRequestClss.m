@@ -177,6 +177,7 @@ static dispatch_once_t onceToken;
     __block NSString *requestStr = @"";
     NSError *jsonError = nil;
     NSData *jsonData = nil;
+
     // 转成Json字符串
     NSString  *jsonStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
    // BOOL bol = [NSJSONSerialization isValidJSONObject:jsonStr];
@@ -187,7 +188,8 @@ static dispatch_once_t onceToken;
 //    }else {
         jsonData = responseObject;
  //   }
-    
+
+         // kNilOptions -- 不操作
          NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableLeaves error:&jsonError];
     
          NSLog(@"获取json字符串：原型---->%@  Dic---%@",jsonStr,jsonDic);
