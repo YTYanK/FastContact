@@ -52,12 +52,12 @@ static dispatch_once_t viewModelToken;
  
  
 // 公共请求方法
-+ (void)initRequestWithUrlObj:(id)obj parametersDic:(NSDictionary *)dic Interface:(NSDictionary *)inter success:(void(^)(id obj,id model))success failure:(void(^)(id obj, NSString *err))failure {
++ (void)initRequestWithUrlObj:(id)obj parametersDic:(NSDictionary *)dic Interface:(NSDictionary *)inter uploadFile:(NSDictionary *)file success:(void(^)(id obj,id model))success failure:(void(^)(id obj, NSString *err))failure {
     
                 BOOL  isLoad = [[inter objectForKey:@"islist"] isEqualToString:@"true"] ? true : false;
                 [ViewModelClass addDoLoading:isLoad];
     
-                [NetRequestClss requestWithUrl:[inter objectForKey:@"mdc_Url"] requestWithParameters:dic method:(NetMethod)[inter objectForKey:@"isMethod"] returnSuccess:^(id objs, int status, NSString *mag) {
+                [NetRequestClss requestWithUrl:[inter objectForKey:@"mdc_Url"] requestWithParameters:dic uploadFile:file  method:(NetMethod)[inter objectForKey:@"isMethod"] returnSuccess:^(id objs, int status, NSString *mag) {
                     
                      [ViewModelClass removeDoLoading:isLoad];
                     

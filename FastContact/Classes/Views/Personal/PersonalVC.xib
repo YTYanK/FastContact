@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -19,61 +20,42 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="RDd-mI-XJI">
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gHd-qU-Uem">
+                    <frame key="frameInset" minY="-167" width="375" height="1000"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gHd-qU-Uem">
-                            <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="4F2-Cy-Rjl">
-                                    <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default_user_avatar.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="5lE-rO-Fbu">
-                                            <constraints>
-                                                <constraint firstAttribute="width" secondItem="5lE-rO-Fbu" secondAttribute="height" multiplier="1:1" id="9hS-p2-uJQ"/>
-                                            </constraints>
-                                        </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="阿康" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rjV-OG-MJG">
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="工号：1004" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5dk-ZE-za6">
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </stackView>
-                            </subviews>
-                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="default_user_avatar.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="5lE-rO-Fbu">
+                            <frame key="frameInset" minX="148" minY="429" width="68" height="68"/>
                             <constraints>
-                                <constraint firstItem="4F2-Cy-Rjl" firstAttribute="leading" secondItem="gHd-qU-Uem" secondAttribute="leading" id="Slq-RU-TqI"/>
-                                <constraint firstAttribute="bottom" secondItem="4F2-Cy-Rjl" secondAttribute="bottom" constant="6" id="ZW3-fc-GVX"/>
-                                <constraint firstItem="4F2-Cy-Rjl" firstAttribute="top" secondItem="gHd-qU-Uem" secondAttribute="top" constant="10" id="g6l-Wm-BIa"/>
-                                <constraint firstAttribute="trailing" secondItem="4F2-Cy-Rjl" secondAttribute="trailing" id="syR-Fe-aZB"/>
+                                <constraint firstAttribute="width" secondItem="5lE-rO-Fbu" secondAttribute="height" multiplier="1:1" id="9hS-p2-uJQ"/>
                             </constraints>
-                        </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MSN-wh-75C">
-                            <color key="backgroundColor" red="0.73725490196078436" green="0.74117647058823533" blue="0.74509803921568629" alpha="1" colorSpace="calibratedRGB"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="1" id="fia-fq-fKS"/>
-                            </constraints>
-                        </view>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="工号：1004" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5dk-ZE-za6">
+                            <frame key="frameInset" minX="137" minY="523" width="91" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="阿康" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rjV-OG-MJG">
+                            <frame key="frameInset" minX="181" minY="552" width="35" height="152"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                </view>
+                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MSN-wh-75C">
+                    <frame key="frameInset" minY="333" width="375" height="1"/>
+                    <color key="backgroundColor" red="0.73725490196078436" green="0.74117647058823533" blue="0.74509803921568629" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstAttribute="trailing" secondItem="MSN-wh-75C" secondAttribute="trailing" id="3m9-Jg-Mp1"/>
-                        <constraint firstAttribute="trailing" secondItem="gHd-qU-Uem" secondAttribute="trailing" id="6IE-Va-ZvS"/>
-                        <constraint firstItem="gHd-qU-Uem" firstAttribute="leading" secondItem="RDd-mI-XJI" secondAttribute="leading" id="6iX-Kf-HAt"/>
-                        <constraint firstItem="MSN-wh-75C" firstAttribute="leading" secondItem="RDd-mI-XJI" secondAttribute="leading" id="SjK-Cf-Xf1"/>
-                        <constraint firstAttribute="bottom" secondItem="MSN-wh-75C" secondAttribute="bottom" id="lVv-RJ-kHx"/>
-                        <constraint firstItem="gHd-qU-Uem" firstAttribute="top" secondItem="RDd-mI-XJI" secondAttribute="top" id="niM-qJ-6An"/>
+                        <constraint firstAttribute="height" constant="1" id="fia-fq-fKS"/>
                     </constraints>
-                </stackView>
+                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-            <constraints>
-                <constraint firstItem="RDd-mI-XJI" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="OmO-Qb-ypK"/>
-                <constraint firstItem="RDd-mI-XJI" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="e5a-04-JuL"/>
-                <constraint firstAttribute="trailing" secondItem="RDd-mI-XJI" secondAttribute="trailing" id="wJx-nt-mbI"/>
-            </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <point key="canvasLocation" x="45.5" y="72.5"/>
         </view>

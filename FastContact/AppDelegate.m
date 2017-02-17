@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 
-@interface AppDelegate ()
+@interface AppDelegate ()<AMapLocationManagerDelegate>
 
 @end
 
@@ -17,6 +17,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self loadWindow];
+    [self configureMap];
     return YES;
 }
 
@@ -62,6 +63,35 @@
         self.window.rootViewController = [main instantiateInitialViewController];
     }
 }
+
+
+#pragma mark - Map
+- (void)configureMap {
+    [AMapServices sharedServices].apiKey = @"ec5cdf400bd7e3901ec2bf6ff0e1e482";
+    [self configLocationManager];
+}
+- (void)configLocationManager {
+    self.locationManager = [[AMapLocationManager alloc] init];
+    
+    [self.locationManager setDelegate:self];
+    
+    //设置期望定位精度
+    [self.locationManager setDesiredAccuracy:kCLLocationAccuracyHundredMeters];
+    
+    //设置不允许系统暂停定位
+    [self.locationManager setPausesLocationUpdatesAutomatically:NO];
+    
+    //设置允许在后台定位
+    [self.locationManager setAllowsBackgroundLocationUpdates:YES];
+    
+    //设置定位超时时间
+    [self.locationManager setLocationTimeout:10];
+    
+    //设置逆地理超时时间
+    [self.locationManager setReGeocodeTimeout:5];
+}
+
+
 
 
 #pragma mark - Core Data stack

@@ -98,7 +98,10 @@ static UtilToolsClss  *utilTool = nil;
          newUrlStr = [urlStr stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
        }
     else {
-        newUrlStr = [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+        newUrlStr = [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]; // 转UTF－8编码
     }
     
     return newUrlStr;
@@ -151,6 +154,35 @@ static UtilToolsClss  *utilTool = nil;
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 }
 
+/// 增加加载
+- (void)addDoLoadingWithTitle:(NSString *)tilte {
+    [self removeDoLoading];
+    UIWindow *temp = [[UIApplication sharedApplication] keyWindow];
+    BGwinodwView = [[UIView alloc] init];
+    BGwinodwView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    BGwinodwView.backgroundColor =[UIColor grayColor];
+    BGwinodwView.alpha = 0.1;
+    
+    if (temp == nil) {
+        UIWindow *tem= [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        tem.backgroundColor = RGB(0, 0, 0, 1);
+        [tem addSubview:BGwinodwView];
+        progressHUD = [MBProgressHUD showHUDAddedTo:tem animated:YES];
+    }else {
+        [temp addSubview:BGwinodwView];
+        progressHUD = [MBProgressHUD showHUDAddedTo:temp animated:YES];
+    }
+    progressHUD.delegate = self;
+    progressHUD.removeFromSuperViewOnHide = YES;
+    progressHUD.detailsLabelText = NSLocalizedString(@"watiting...", nil);
+    progressHUD.dimBackground =YES;
+    [progressHUD hide:YES afterDelay:30];//计时3s
+    [progressHUD show:YES];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+}
+
+
+
 /// 移除加载
 - (void)removeDoLoading {
     [BGwinodwView removeFromSuperview];
@@ -159,6 +191,9 @@ static UtilToolsClss  *utilTool = nil;
     BGwinodwView = nil;
      [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
+
+
+
 
 
 
@@ -191,6 +226,9 @@ static UtilToolsClss  *utilTool = nil;
         });
         
     }else{
+        
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
         UIAlertView  *alert2=[[UIAlertView alloc]initWithTitle:str message:mess delegate:nil cancelButtonTitle:@"Sure" otherButtonTitles:nil, nil];
         [alert2 show];
     }

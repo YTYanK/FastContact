@@ -15,6 +15,7 @@
 {
     /** 判断是否点击了 */
     BOOL   isClick;
+    __weak IBOutlet NSLayoutConstraint *logoH;
 }
 @property (strong, nonatomic) RichTextField *account;
 @property (strong, nonatomic) RichTextField *password;
@@ -68,12 +69,12 @@
 */
 
 
-
-
-
 #pragma mark - 自定义方法
 - (void)updateLoginView{
     
+    if (SCREEN_WIDTH == 320) {
+        logoH.constant = -50;
+    }
     
     //TODO: 硬性编码 之后处理
     NSDictionary *dic = [[NSDictionary alloc] initWithObjectsAndKeys:LOIN_IC_USE,RICH_ICON,@"账号：",RICH_THEME,@"请输入用户名",RICH_PROMPT,nil];
@@ -81,7 +82,7 @@
     NSMutableArray *mutAry  = [NSMutableArray arrayWithObjects:dic,dic2,nil];
     
     // 账号输入框
-    self.account = [[RichTextField alloc] initWithFrame:CGRectMake(0, 300, SCREEN_WIDTH, 44)];
+    self.account = [[RichTextField alloc] initWithFrame:CGRectMake(0, 290 +(logoH.constant), SCREEN_WIDTH, 44)];
     self.account.richThemeColor = [UIColor orangeColor];
     self.account.richData = mutAry[0];
     self.account.richSecureTextEntry = NO;
@@ -98,8 +99,18 @@
     self.password.inputBox.returnKeyType = UIReturnKeyDone;
     
     
+    CGFloat fl = 0;
     // 登录按钮
-    self.loginBtn = [[UIButton alloc] initWithFrame:CGRectMake(64, CGRectGetMaxY(self.password.frame) + 40, 280, 30)];
+    if (SCREEN_WIDTH == 320) {
+        fl = (SCREEN_WIDTH - 64);
+    }else if (SCREEN_WIDTH == 414) {
+         fl = (SCREEN_WIDTH - 150);
+    }else {
+        fl = SCREEN_WIDTH - 120;
+    }
+    
+    
+    self.loginBtn = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2 - fl/2, CGRectGetMaxY(self.password.frame) + 40, fl, 30)];
     [self.loginBtn setTitle:@"登录" forState:UIControlStateNormal];
     [self.loginBtn setTintColor:[UIColor whiteColor]];
     [self.loginBtn setBackgroundColor:[UIColor grayColor]];

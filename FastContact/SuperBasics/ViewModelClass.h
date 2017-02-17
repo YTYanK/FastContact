@@ -47,6 +47,6 @@ extern NSString * const kFC_Msg;
 + (NSString *)forceJumpViewStatus:(int)status forController:(UIViewController *)vcont;
 
 // 公共请求方法
-+ (void)initRequestWithUrlObj:(id)obj parametersDic:(NSDictionary *)dic Interface:(NSDictionary *)inter success:(void(^)(id obj,id model))success failure:(void(^)(id obj, NSString *err))failure;
++ (void)initRequestWithUrlObj:(id)obj parametersDic:(NSDictionary *)dic Interface:(NSDictionary *)inter uploadFile:(NSDictionary *)file success:(void(^)(id obj,id model))success failure:(void(^)(id obj, NSString *err))failure;
 
 @end

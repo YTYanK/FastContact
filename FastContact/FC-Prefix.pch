@@ -22,8 +22,7 @@
 // http://120.76.26.133:8081/外网
 
 #define CHEATS_IP  [[NSUserDefaults standardUserDefaults] objectForKey:@"CheatsVlue"]
-//#define IP  (CHEATS_IP == nil) ? @"http://120.76.26.133:8081/" : [NSString stringWithFormat:@"%@",CHEATS_IP]  //默认是测试
-#define IP @" http://120.76.26.133:8081/"
+#define IP  (CHEATS_IP == nil) ? @"http://120.76.26.133:8081/" : [NSString stringWithFormat:@"%@",CHEATS_IP]  //默认是测试
 
 /* 接口连接头部
  */
@@ -209,3 +208,5 @@ return _instance;\
  */
 #define IOS_VERSION [CurrentSystemVersion floatValue]
 
+
+#pragma Map_key @"ec5cdf400bd7e3901ec2bf6ff0e1e482"

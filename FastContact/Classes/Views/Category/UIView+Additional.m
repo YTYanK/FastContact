@@ -79,7 +79,11 @@
 
 // perhaps
 + (void)addViewBorder:(UIView *)v borderType:(ViewBorderType)type perhapsLayoutConstraints:(NSArray<__kindof NSLayoutConstraint *> *)Ary {
-
+    
+    CALayer *topB;
+    CALayer *bottomB;
+    CALayer *leftB;
+    CALayer *rightB;
     
     CGColorRef color = v.layer.borderColor;
     CGFloat borderH;
@@ -93,14 +97,22 @@
         if (type == ViewBorderTop || type == ViewBorderBottom || type == ViewBorderTopAndBottom ) {
             
             if (type == ViewBorderTop || type == ViewBorderTopAndBottom) {
-                CALayer *topB = [CALayer layer];
+                
+                if (topB == nil) {
+                    topB = [CALayer layer];
+                }
+                [topB removeFromSuperlayer];
                 topB.frame = CGRectMake(0, 0, v.frame.size.width, borderH);
                 topB.backgroundColor = color;
                 [v.layer addSublayer:topB];
             }
             
             if (type == ViewBorderBottom || type == ViewBorderTopAndBottom) {
-                CALayer *bottomB = [CALayer layer];
+                
+                if (bottomB == nil) {
+                    bottomB = [CALayer layer];
+                }
+                [bottomB removeFromSuperlayer];
                 bottomB.frame = CGRectMake(0, CGRectGetHeight(v.frame), v.frame.size.width, borderH);
                 bottomB.backgroundColor = color;
                 [v.layer addSublayer:bottomB];
@@ -109,14 +121,22 @@
         
         if (type == ViewBorderLeft || type == ViewBorderRight || type == ViewBorderLeftAndRight) {
             if (type == ViewBorderLeft || type == ViewBorderLeftAndRight) {
-                CALayer *leftB = [CALayer layer];
+                
+                if (leftB == nil) {
+                    leftB = [CALayer layer];
+                }
+                [leftB removeFromSuperlayer];
                 leftB.frame = CGRectMake(0, 0, borderH, v.frame.size.height);
                 leftB.backgroundColor = color;
                 [v.layer addSublayer:leftB];
             }
             
             if (type == ViewBorderRight || type == ViewBorderLeftAndRight) {
-                CALayer *rightB = [CALayer layer];
+                
+                if (rightB == nil) {
+                    rightB = [CALayer layer];
+                }
+                [rightB removeFromSuperlayer];
                 rightB.frame = CGRectMake(v.frame.size.width-borderH, 0, borderH, v.frame.size.height);
                 rightB.backgroundColor = color;
                 [v.layer addSublayer:rightB];

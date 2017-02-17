@@ -81,22 +81,47 @@
 }
 
 
-//CGSize size=[UIImage imageWithContentsOfFile:path].size;
 // 设置大小及位置
 - (void)updateFrame {
     
     CGFloat totalH = self.frame.size.height;
-    CGFloat totalY = totalH - 23;
+
+    
+    CGFloat SW_2 = SCREEN_WIDTH/2;
+    CGFloat SH_2 = totalH/2;
+    CGFloat iconW_C = SW_2 - _imageSize.width/4;
+    CGFloat iconH_C = SH_2 - _imageSize.height/4;
+    
+    self.icon.frame = CGRectMake(iconW_C, iconH_C, _imageSize.width/2, _imageSize.height/2);
+    self.theme.size = CGSizeMake(55, 20);
+    if (SCREEN_WIDTH == 320) {
+        self.inputBox.size = CGSizeMake(150, totalH);
+    }else if(SCREEN_WIDTH == 414){
+        self.inputBox.size = CGSizeMake(200, totalH);
+    }else {
+        self.inputBox.size = CGSizeMake(150, totalH);
+    }
     
     
-    self.icon.frame = CGRectMake(66, totalY  -5, _imageSize.width/2, _imageSize.height/2);
-    self.theme.frame = CGRectMake(CGRectGetMaxX(self.icon.frame)+10, totalY - 2, 55, 20);
-    self.inputBox.frame = CGRectMake(CGRectGetMaxX(self.theme.frame), CGRectGetMaxY(self.theme.frame) - totalH + 10, 200, totalH - 0);
+    self.icon.frame = CGRectMake(_icon.frame.origin.x - _theme.frame.size.width - 55, _icon.frame.origin.y, _icon.frame.size.width, _icon.frame.size.height);
+    self.theme.frame = CGRectMake(CGRectGetMaxX(self.icon.frame)+10, iconH_C + 4,_theme.size.width,_theme.size.height);
+    self.inputBox.frame = CGRectMake(CGRectGetMaxX(_theme.frame), CGRectGetMaxY(self.theme.frame) - totalH + 10, _inputBox.width, totalH);
+    
     
     //画一条线
+    
+    CGFloat lf = 0;
+    if (SCREEN_WIDTH == 320) {
+        lf = 280;
+    }else if(SCREEN_WIDTH == 414) {
+        lf = 330;
+    }else {
+        lf = 300;
+    }
+    
     UIBezierPath *line = [UIBezierPath bezierPath];
     [line moveToPoint:CGPointMake(CGRectGetMaxX(self.theme.frame), CGRectGetMaxY(self.theme.frame))];
-    [line addLineToPoint:CGPointMake(338, CGRectGetMaxY(self.theme.frame))];
+    [line addLineToPoint:CGPointMake(lf, CGRectGetMaxY(self.theme.frame))];
     
     _shapelayer = [CAShapeLayer layer];
     _shapelayer.frame = self.bounds;

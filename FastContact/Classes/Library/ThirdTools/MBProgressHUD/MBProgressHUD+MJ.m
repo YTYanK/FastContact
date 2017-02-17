@@ -57,6 +57,35 @@
 }
 
 
++ (void)yty_showTitle:(NSString *)title detailsText:(NSString *)details toView:(UIView *)view  err:(BOOL)isErr{
+    if (view == nil) view = [[UIApplication sharedApplication].windows lastObject];
+    
+    NSLog(@"------->%f --->%f",view.height,view.width);
+    // 快速显示一个提示信息
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
+    hud.labelText = title;
+    hud.detailsLabelText = details;
+    // 设置字体大小
+    //  hud.labelFont = [UIFont systemFontOfSize:15.f];
+    hud.detailsLabelFont = [UIFont systemFontOfSize:15.f];
+    // 设置图片
+    if (isErr) {
+      hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"MBProgressHUD.bundle/error.png"]]];
+    }else {
+        hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"MBProgressHUD.bundle/success.png"]]];
+    }
+    
+    // 再设置模式
+    hud.mode = MBProgressHUDModeCustomView;
+    
+    // 隐藏时候从父控件中移除
+    hud.removeFromSuperViewOnHide = YES;
+    
+    // 1秒之后再消失
+    [hud hide:YES afterDelay:1.5];//0.7
+}
+
+
 #pragma mark 显示错误信息
 + (void)showError:(NSString *)error toView:(UIView *)view{
     [self show:error icon:@"error.png" view:view];

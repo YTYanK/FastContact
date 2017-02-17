@@ -17,61 +17,38 @@
     return textSize;
 }
 
+// 获取当前时间
++ (NSString *)getCurrentTime {
+    NSDate *date = [NSDate date];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateStyle:NSDateFormatterMediumStyle];
+    
+    [formatter setTimeStyle:NSDateFormatterShortStyle];
+    
+    [formatter setDateFormat:@"YYYY-MM-dd hh:mm:ss"];
+    return [formatter stringFromDate:date];
+}
+
 // 字符日期计算两个时间的差
 + (NSString *)intervalFromLastDate: (NSString *)beginDateStr  toTheDate:(NSString *)endDateStr
 {
-    NSArray *beginTimeAry=[beginDateStr componentsSeparatedByString:@"."];
-    NSString *beginStr=[beginTimeAry objectAtIndex:0];
+    NSString *timeString = @"";
     
-    
-    NSArray *endTimeAry=[endDateStr componentsSeparatedByString:@"."];
-    NSString *endStr =[endTimeAry objectAtIndex:0];
-    
-    NSDateFormatter *date=[[NSDateFormatter alloc] init];
-    [date setDateFormat:@"MM/dd/yyyy HH:mm:ss"];
-    
-    
-    NSDate *beginD=[date dateFromString:beginStr];
-    NSTimeInterval beginLate=[beginD timeIntervalSince1970]*1;
+    NSDateFormatter *date =[[NSDateFormatter alloc] init];
+    [date setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSDate *beginDate = [date dateFromString:beginDateStr];
+    NSDate *endDate = [date dateFromString:endDateStr];
     
     
     
-    NSDate *endD=[date dateFromString:endStr];
-    NSTimeInterval endLate=[endD timeIntervalSince1970]*1;
+    NSCalendar *cal = [NSCalendar currentCalendar];
     
+    unsigned int unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
     
-    
-    NSTimeInterval cha = endLate-beginLate;
-    NSString *timeString=@"";
-    NSString *house=@"";
-    NSString *min=@"";
-    NSString *sen=@"";
-    
-    //    秒
-    sen = [NSString stringWithFormat:@"%d", (int)cha%60];
-    if (sen.intValue < 10) {
-        sen = [NSString stringWithFormat:@"0%@", sen];
-    }else {
-        sen = [NSString stringWithFormat:@"%@", sen];
-    }
-    
-    //    分
-    min = [NSString stringWithFormat:@"%d", (int)cha/60%60];
-    if (min.intValue < 10) {
-        min =[NSString stringWithFormat:@"0%@", min];
-    }else {
-        min =[NSString stringWithFormat:@"%@", min];
-    }
-    //    小时
-    house = [NSString stringWithFormat:@"%d", (int)cha/3600];
-    if (house.intValue < 10) {
-         house=[NSString stringWithFormat:@"0%@", house];
-    }else {
-     house=[NSString stringWithFormat:@"%@", house];
-    }
-    
-    
-    timeString=[NSString stringWithFormat:@"%@:%@:%@",house,min,sen];
+    NSDateComponents *d = [cal components:unitFlags fromDate:beginDate toDate:endDate options:0];
+        
+    timeString = [NSString stringWithFormat:@"%ld天%ld时%ld分",(long)[d day],[d hour],[d minute]];
+
     return timeString;
 }
 

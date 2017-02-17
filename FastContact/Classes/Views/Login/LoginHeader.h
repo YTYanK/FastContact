@@ -14,8 +14,7 @@
 #define RICH_THEME @"rich_theme"
 #define RICH_PROMPT @"rich_prompt"
 
-static  NSString * const kFC_LoginAccount = @"loin_account";
-static  NSString * const kFC_LoginPass  = @"loin_pass";
+
 
 
 

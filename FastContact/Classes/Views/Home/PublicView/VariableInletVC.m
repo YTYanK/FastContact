@@ -12,9 +12,33 @@
 
 #import "BaseListModel.h"
 #import "SecCategoryListModel.h"
-
+#import "WorkCategoryListModel.h"
 
 @interface VariableInletVC ()<ButtonBlockDelage>
+/**
+ * 用来装数据
+ */
+@property (strong, nonatomic) NSMutableArray *dataAry;
+/**
+ * 更新标题
+ */
+@property (strong, nonatomic) NSString *updateNavTitle;
+/**
+ * 方块编号
+ */
+@property (nonatomic) NSNumber *blockTag;
+/** 
+ * 装列表值字典
+ */
+@property (strong, nonatomic) NSDictionary *dataDic;
+/**
+ * 按钮事件类型
+ */
+@property (strong, nonatomic) NSArray *btnStyleAry;
+/**
+ * 方块ID
+ */
+@property (strong, nonatomic) NSString *blockID;
 
 @end
 
@@ -22,8 +46,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //测试
-     [self performSegueWithIdentifier:@"goToWorkOrder" sender:self];
+    
+//    if ([self.baseList count] == 0) {
+//        [MBProgressHUD yty_showErrorWithTitle:nil detailsText:@"没有更多数据了" toView:self.view];
+//        return;
+//    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -77,12 +104,24 @@
         }
     }
     
-    
+}
+
+
+- (void)removeInletView {
+     [self.view.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+}
+
+#pragma mark - set
+
+- (void)setNavTitle:(NSString *)navTitle {
+    _navTitle = navTitle;
+    self.title = navTitle;
 }
 
 - (void)setBaseList:(NSArray<BaseListModel *> *)baseList{
     _baseList = baseList;
-    
+   
+
     NSMutableArray * ary = [NSMutableArray array];
     for (BaseListModel *model in baseList) {
         [ary addObject:[model name]];
@@ -92,7 +131,7 @@
     
     for (int i = 0; i<_buttonBlockViewAry.count; i++) {
         BaseListModel  *model    = _baseList[i];
-      ButtonBlockView * view   =  _buttonBlockViewAry[i];
+        ButtonBlockView * view   =  _buttonBlockViewAry[i];
         view.tag = [[model value] integerValue];
     }
     
@@ -103,8 +142,10 @@
     if (![inletSign isEqualToString:@"OperationMaintenance"]) {
         
         if ([inletSign isEqualToString:@"TaskManagement"]) {
+            [self removeInletView];
             [self initVariableInletViewForBtnData:@[@"超时工单提醒",@"抢单池",@"临时任务"]];
-        }else if([inletSign isEqualToString:@"ubordinateOperationMaintenance"]) {
+        }else if([inletSign isEqualToString:@"LeaveExaminationAndApproval"]) {
+            [self removeInletView];
             [self initVariableInletViewForBtnData:@[@"我的申请",@"我的审批"]];
         }else {
             
@@ -116,27 +157,58 @@
 #pragma mark - ButtonBlockDelage
 
 - (void)clickBlockButton:(ButtonBlockView *)block {
-     NSLog(@"--->%ld--->%@",(long)block.tag,block.text);
+     NSLog(@"牌号与标题--->%ld--->%@",(long)block.tag,block.text);
+
+    self.blockTag = [NSNumber numberWithInteger:block.tag];
     if ([self.inletSign isEqualToString:@"SubordinateOperationMaintenance"]) {
         
-//        NSDictionary  *inter = FC_DIC(@"Task/List",kFC_URL,[NSNumber numberWithInt:-1],kFC_NetMethod,[NSNumber numberWithInt:2],kFC_Trans,nil);
-//        NSDictionary  *param = FC_DIC([NSNumber numberWithInt:1],@"Page",[NSNumber numberWithInt:100],@"PageSize",[NSNumber numberWithInteger:block.tag],@"Seccategory",@"",@"taskstatus",@"",@"endTime",@"",@"startTime",nil);
-//        [InterfaceViewModel sharedInterfaceViewModel].loading = true;
-//        [InterfaceViewModel requestWithObj:self Interface:inter andParam:param success:^(id model) {
-            // SecCategoryListModel *secc  = model;
-            [self performSegueWithIdentifier:@"goToWorkOrder" sender:self];
+        
+        self.updateNavTitle = [NSString stringWithFormat:@"%@-%@",[NSUD objectForKey:Nav_Title],block.text];
+      
+        NSDictionary  *param = FC_DIC([NSNumber numberWithInt:1],@"Page",[NSNumber numberWithInt:200],@"PageSize",self.blockTag,@"Seccategory",[NSUD objectForKey:Block_Tag],@"WorkIndex",nil);
+         [InterfaceViewModel sharedInterfaceViewModel].loading = true;
+   
+              NSDictionary  *inter = FC_DIC(@"Task/WorkCategoryList",kFC_URL,[NSNumber numberWithInt:-1],kFC_NetMethod,[NSNumber numberWithInt:2],kFC_Trans,nil);
             
+            [InterfaceViewModel requestWithObj:self Interface:inter andParam:param success:^(id model) {
+                self.dataAry = nil;
+                for (WorkCategoryListModel *list in model) {
+                    //TODO: 如果list 长度 大于 0 会被覆盖
+                    self.blockID = list.workcategory1id;
+                    [self.dataAry addObject:list.name];
+                }
+                [self.dataAry insertObject:@"全部" atIndex:0];
+                
+                
+                if ([block.text isEqualToString:@"发电"]) {
+                    self.dataDic = @{Inlet_Screen:@[],Inlet_State:@[@"全部",@"发电中",@"发电完成"]};
+                    self.btnStyleAry = @[@"MenuStyleTable",@"MenuStyleButton"];
+                }else if ([block.text isEqualToString:@"巡检"]) {
+                    self.dataDic = @{Inlet_Screen:@[],Inlet_Type:self.dataAry,Inlet_State:@[@"全部",@"待巡检",@"巡检中",@"已完成"]};
+                }else if ([block.text isEqualToString:@"隐患"]) {
+                    self.dataDic = @{Inlet_Screen:@[]};
+                    self.btnStyleAry = @[@"MenuStyleButton"];
+                }else {
+                    self.dataDic = @{Inlet_Screen:@[],Inlet_Type:self.dataAry,Inlet_State:@[@"全部",@"未接单",@"已完工",@"未完工",@"退单"]};
+                    self.btnStyleAry = @[@"MenuStyleTable",@"MenuStyleTable",@"MenuStyleButton"];
+                }
+                
+                [self performSegueWithIdentifier:@"goToWorkOrder" sender:self];
+                
+                
+            } failure:^(NSString *mag) {
+                [MBProgressHUD yty_showErrorWithTitle:nil detailsText:mag toView:self.view];
+            }];
             
-//        } failure:^(NSString *mag) {
-//            [MBProgressHUD yty_showErrorWithTitle:nil detailsText:mag toView:self.view];
-//        }];
- 
+
     }else {
+  
+        // 第二层分类
         NSDictionary  *inter = FC_DIC(@"Task/SecCategoryList",kFC_URL,[NSNumber numberWithInt:-1],kFC_NetMethod,[NSNumber numberWithInt:2],kFC_Trans,nil);
-        NSDictionary  *param = FC_DIC([NSNumber numberWithInt:1],@"Page",[NSNumber numberWithInt:100],@"PageSize",[NSNumber numberWithInteger:block.tag],@"WorkIndex",nil);
+        NSDictionary  *param = FC_DIC([NSNumber numberWithInt:1],@"Page",[NSNumber numberWithInt:100],@"PageSize",self.blockTag,@"WorkIndex",nil);
         [InterfaceViewModel sharedInterfaceViewModel].loading = true;
         [InterfaceViewModel requestWithObj:self Interface:inter andParam:param success:^(id model) {
-          // SecCategoryListModel *secc  = model;
+    
         UIStoryboard * story = [UIStoryboard storyboardWithName:@"Public" bundle:nil];
         VariableInletVC *inlet = [story instantiateViewControllerWithIdentifier:@"variableInletVC"];
         inlet.inletSign = @"SubordinateOperationMaintenance";
@@ -153,11 +225,16 @@
                 view.tag = [[list seccategory] integerValue];
             }
             [self.navigationController pushViewController:inlet animated:YES];
-
-      
+            inlet.title = block.text;
+            [NSUD setValue:block.text forKey:Nav_Title];
+            [NSUD setInteger:block.tag forKey:Block_Tag];
+            
         } failure:^(NSString *mag) {
             [MBProgressHUD yty_showErrorWithTitle:nil detailsText:mag toView:self.view];
         }];
+        
+        
+        
     }
 }
 
@@ -170,13 +247,24 @@
     return _buttonBlockViewAry;
 }
 
+- (NSMutableArray *)dataAry {
+    if (_dataAry == nil) {
+        _dataAry = [NSMutableArray array];
+    }
+    return _dataAry;
+}
+
 
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier compare:@"goToWorkOrder"] == NO) {
         id vc = segue.destinationViewController;
-       // [vc setValue:dataTransfer forKey:@"baseList"];
+        [vc setValue:self.blockID forKey:@"btnAdditionalStr"];
+        [vc setValue:self.updateNavTitle forKey:@"navTitle"];
+        [vc setValue:self.btnStyleAry forKey:@"menuStyleAry"];
+        [vc setValue:self.dataDic forKey:@"menuDic"];
+        [vc setValue:self.blockTag forKey:@"workBlockTag"];
     }
 }
 

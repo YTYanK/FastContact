@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="112" id="KGk-i7-Jjw" customClass="AssemblyCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="94"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="93"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_default_photo" translatesAutoresizingMaskIntoConstraints="NO" id="e7N-gY-KV0">
+                        <rect key="frame" x="8" y="8" width="96" height="77"/>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_default_photo" translatesAutoresizingMaskIntoConstraints="NO" id="n1j-gZ-6lw">
+                        <rect key="frame" x="112" y="8" width="96" height="77"/>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" tag="3" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_default_photo" translatesAutoresizingMaskIntoConstraints="NO" id="xEx-WM-6Wv">
+                        <rect key="frame" x="216" y="8" width="96" height="77"/>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="xEx-WM-6Wv" firstAttribute="width" secondItem="e7N-gY-KV0" secondAttribute="width" id="1eS-9j-xqr"/>
+                    <constraint firstItem="n1j-gZ-6lw" firstAttribute="leading" secondItem="e7N-gY-KV0" secondAttribute="trailing" constant="8" id="5NY-hJ-zXA"/>
+                    <constraint firstItem="xEx-WM-6Wv" firstAttribute="top" secondItem="n1j-gZ-6lw" secondAttribute="top" id="Hcm-Jm-MHa"/>
+                    <constraint firstAttribute="bottom" secondItem="e7N-gY-KV0" secondAttribute="bottom" constant="8" id="Iba-tE-uEg"/>
+                    <constraint firstItem="e7N-gY-KV0" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="KE3-Qi-NNb"/>
+                    <constraint firstItem="n1j-gZ-6lw" firstAttribute="width" secondItem="e7N-gY-KV0" secondAttribute="width" id="chc-Jn-hNl"/>
+                    <constraint firstItem="n1j-gZ-6lw" firstAttribute="top" secondItem="e7N-gY-KV0" secondAttribute="top" id="hEj-1G-fS9"/>
+                    <constraint firstItem="xEx-WM-6Wv" firstAttribute="leading" secondItem="n1j-gZ-6lw" secondAttribute="trailing" constant="8" id="iFP-6R-w6M"/>
+                    <constraint firstItem="n1j-gZ-6lw" firstAttribute="bottom" secondItem="e7N-gY-KV0" secondAttribute="bottom" id="lpj-0d-lbx"/>
+                    <constraint firstItem="e7N-gY-KV0" firstAttribute="width" relation="greaterThanOrEqual" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.3" priority="999" id="ohS-8h-9w6"/>
+                    <constraint firstItem="e7N-gY-KV0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="p60-F2-b1h"/>
+                    <constraint firstAttribute="trailing" secondItem="xEx-WM-6Wv" secondAttribute="trailing" constant="8" id="qzW-A4-Kg7"/>
+                    <constraint firstItem="xEx-WM-6Wv" firstAttribute="bottom" secondItem="n1j-gZ-6lw" secondAttribute="bottom" id="yVa-io-wJU"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="image1" destination="e7N-gY-KV0" id="cvJ-I8-geT"/>
+                <outlet property="image2" destination="n1j-gZ-6lw" id="meJ-F6-tTL"/>
+                <outlet property="image3" destination="xEx-WM-6Wv" id="SF3-y8-AKc"/>
+            </connections>
+            <point key="canvasLocation" x="71" y="72"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="ic_default_photo" width="102" height="77"/>
+    </resources>
+</document>

@@ -11,6 +11,8 @@
 @interface NSString (Extension)
 - (CGSize)sizeWithFont:(UIFont *)font maxSize:(CGSize)maxSize;
 
++ (NSString *)getCurrentTime;
+
 + (NSString *)intervalFromLastDate: (NSString *)beginDateStr  toTheDate:(NSString *)endDateStr;
 
 @end

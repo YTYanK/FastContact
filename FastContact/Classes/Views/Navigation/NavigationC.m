@@ -38,7 +38,12 @@
 /// 设置Bar样式
 + (void)setupNavigationBarTheme {
     
-    UINavigationBar *navBar = [UINavigationBar appearanceWhenContainedIn:[NavigationC class], nil];//针对NavigationC  修改
+    UINavigationBar *navBar;
+#ifdef __IPHONE_9_0
+    navBar = [UINavigationBar appearanceWhenContainedInInstancesOfClasses:@[[NavigationC class]]];
+#else
+    navBar = [UINavigationBar appearanceWhenContainedIn :[NavigationC class], nil];//针对NavigationC  修改
+#endif
     
     // 设置文字属性
 #ifdef __IPHONE_7_0
@@ -53,7 +58,7 @@
     
     // 设置导航栏背景
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
-        //navBarBg = @"NavBar64";
+     //navBarBg = @"NavBar64";
     //    navBarBg = @"navBar-bg";
         navBar.tintColor = [UIColor whiteColor];
     }
@@ -87,11 +92,11 @@
     if (self.viewControllers.count > 0) {
         viewController.hidesBottomBarWhenPushed = YES;
         // 设置导航栏
-    //    UINavigationItem *vcBtnItem = [viewController navigationItem];
+      //  UINavigationItem *vcBtnItem = [viewController navigationItem];
         
-   // vcBtnItem.leftBarButtonItem = [UIBarButtonItem BarButtonItemWithImageName:@"navigationbar_back_withtext" highImageName:@"navigationbar_back_withtext_highlighted" title:[[self.childViewControllers lastObject] title] target:self action:@selector(back)];
-    
-   //  vcBtnItem.leftBarButtonItem = [UIBarButtonItem BarButtonItemWithImageName:@"返回" highImageName:@"返回" title:@"" target:self action:@selector(back)];//navigationbar_back_withtext_highlighted  -navigationbar_back_withtext
+//    vcBtnItem.leftBarButtonItem = [UIBarButtonItem BarButtonItemWithImageName:@"navigationbar_back_withtext" highImageName:@"navigationbar_back_withtext_highlighted" title:[[self.childViewControllers lastObject] title] target:self action:@selector(back)];
+//    
+//     vcBtnItem.leftBarButtonItem = [UIBarButtonItem BarButtonItemWithImageName:@"返回" highImageName:@"返回" title:@"" target:self action:@selector(back)];//navigationbar_back_withtext_highlighted  -navigationbar_back_withtext
         
     }
     [super pushViewController:viewController animated:YES];

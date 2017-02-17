@@ -12,7 +12,7 @@
 
 @interface InterfaceViewModel : ViewModelClass
 @property (assign, nonatomic, setter=isLoading:) BOOL loading;
-
+@property (strong, nonatomic) NSMutableArray *models;
 
 /**
  *  共享对象

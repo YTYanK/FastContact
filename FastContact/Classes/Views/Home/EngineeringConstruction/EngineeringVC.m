@@ -38,9 +38,8 @@ static NSString *cellIdentifier = @"engineeringCell";
 }
 
 - (void)initTableViewMJRefresh {
-    //self.engineeringTableView.separatorStyle = UITableViewCellSelectionStyleNone;
     self.engineeringTableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        
+        [self.engineeringTableView.header endRefreshing];
     }];
     self.engineeringTableView.header.automaticallyChangeAlpha = YES;
     [self.engineeringTableView.header beginRefreshing];
@@ -58,13 +57,6 @@ static NSString *cellIdentifier = @"engineeringCell";
     return 44.f;
 }
 
-//- (CGFloat)tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section {
-//    return 20.f;
-//}
-//
-//- (UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section {
-//    return nil;
-//}
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath*)indexPath {
     [self performSegueWithIdentifier:@"goToEngineeringDetailed" sender:self];

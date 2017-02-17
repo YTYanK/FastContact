@@ -87,7 +87,6 @@ static dispatch_once_t onceToken;
         //@"网络不给力"
         return NSLocalizedString(@"NetRClss3701", nil);//false;
     }else if([error code] == NSURLErrorTimedOut) {
-        
         // @"请求超时,请你稍后尝试。"
         return NSLocalizedString(@"NetRClss3705", nil);
     }else if([error code] == NSURLErrorBadServerResponse) {
@@ -102,7 +101,7 @@ static dispatch_once_t onceToken;
 }
 
 #pragma mark - 使用这个请求方法，其他不使用。
-+ (void)requestWithUrl:(NSString *)url requestWithParameters:(NSDictionary *)par method:(NetMethod)met returnSuccess:(void(^)(id objs, int status, NSString *mag))success returnError:(void(^)(NSString *err))err {
++ (void)requestWithUrl:(NSString *)url requestWithParameters:(NSDictionary *)par uploadFile:(NSDictionary *)fileDic method:(NetMethod)met returnSuccess:(void(^)(id objs, int status, NSString *mag))success returnError:(void(^)(NSString *err))err {
 
     
     [[AFNetworkReachabilityManager sharedManager]startMonitoring];
@@ -113,7 +112,6 @@ static dispatch_once_t onceToken;
                 NSError *errer = nil ;
                 [NetRequestClss requestWithReturnError:errer errorBlock:err];
 
-            
         }else{
             
             NSString *metStr = (met > 0) ? @"POST" : @"GET";
@@ -149,16 +147,58 @@ static dispatch_once_t onceToken;
             
             NSComparisonResult postComparison = [metStr caseInsensitiveCompare:@"POST"];
             if (postComparison == NSOrderedSame) {
-                
-                [manager POST:[NSString stringWithFormat:@"%@",requestUrl] parameters:par progress:^(NSProgress * _Nonnull uploadProgress) {
-                    //不做操作
-                } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                    [NetRequestClss requestWithRetrunSuccess:responseObject successBlock:success];
-                    
-                } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                    [NetRequestClss requestWithReturnError:error errorBlock:err];
-                    
-                }];
+            
+                if (fileDic == nil) {
+                    [manager POST:[NSString stringWithFormat:@"%@",requestUrl] parameters:par progress:^(NSProgress * _Nonnull uploadProgress) {
+                        //不做操作
+                    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                        [NetRequestClss requestWithRetrunSuccess:responseObject successBlock:success];
+                        
+                    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                        [NetRequestClss requestWithReturnError:error errorBlock:err];
+                        
+                    }];
+                }else {
+                    // 文件上传
+                    [manager POST:[NSString stringWithFormat:@"%@",requestUrl] parameters:par constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+                        
+                        // NSURL *url=[NSURL fileURLWithPath:@"/Users/hq/Desktop/2.jpg"];
+                        // URL 上传
+                        //[formData appendPartWithFileURL:url name:@"file" fileName:@"2.jpg" mimeType:@"image/jpeg" error:nil];
+                        
+                        NSArray *idVlueAry  = [fileDic objectForKey:@"IdAry"];
+                        NSArray<UIImage *> * imgVlueAry = [fileDic objectForKey:@"ImageAry"];
+                        
+                        if ([imgVlueAry[0] isKindOfClass:[UIImage class]]) {
+                            if (imgVlueAry.count == 1) {
+                               
+                                    NSData *imgData  = UIImageJPEGRepresentation(imgVlueAry[0], 0.5);
+                                
+                                [formData appendPartWithFileData:imgData name:[NSString stringWithFormat:@"%@",idVlueAry[0]]  fileName:[NSString stringWithFormat:@"%@.jpg",idVlueAry[0]] mimeType:@"image/jpeg"];
+                            }else {
+                                for (int i = 0; i < imgVlueAry.count; i++) {
+                                        NSData *imgData  = UIImageJPEGRepresentation(imgVlueAry[i], 0.5);
+                                        
+                                        [formData appendPartWithFileData:imgData name:[NSString stringWithFormat:@"%@%ld",idVlueAry[i],(long)i+1]  fileName:[NSString stringWithFormat:@"%@%ld.jpg",idVlueAry[i],(long)i+1] mimeType:@"image/jpeg"];
+                                }
+                            }
+                        }else if([imgVlueAry[0] isKindOfClass:[NSURL class]]) {
+                            //
+                        }else {
+                           // break;
+                        }
+                        
+                       
+                        
+                    } progress:^(NSProgress * _Nonnull uploadProgress) {
+                        NSLog(@"---->%f",uploadProgress.fractionCompleted);
+                    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                        [NetRequestClss requestWithRetrunSuccess:responseObject successBlock:success];
+                    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                        [NetRequestClss requestWithReturnError:error errorBlock:err];
+                    }];
+  
+                }
             }
 
         

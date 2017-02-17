@@ -38,6 +38,8 @@ static NSString * const kFC_URL     = @"fc_url";
 static NSString * const kFC_Trans   = @"fc_trans";
 /// 请求方式
 static NSString * const kFC_NetMethod = @"fc_netMethod";
+/// 上传文件
+static NSString * const kFC_File = @"fc_file";
 
 /// 会话ID
 static NSString * const kFC_SessionID  = @"SessionId";
@@ -46,11 +48,18 @@ static NSString * const kFC_LoginName  = @"loginName";
 /// API版本号值
 static NSString * const kFC_VersionVlue = @"1";
 
+//账号密码
+static  NSString * const kFC_LoginAccount = @"loin_account";
+static  NSString * const kFC_LoginPass  = @"loin_pass";
+
 typedef enum : NSUInteger {
     TransformationModel = 1,  //字典 -> 模型
     TransformationArrayModel = 2, //字典数组 -> 模型数组
     TransformationKeyValuesArray = 3, //模型数组 -> 字典数组
+    TransformationNot = 4, // 不转直接返回字典
 } Transformation;
+
+
 
 
 // --------------------
@@ -69,5 +78,10 @@ typedef enum : NSUInteger {
 #import "NSString+Extension.h"
 #import "MJExtension.h"
 #import "MJRefresh.h"
+
+
+#import <MapKit/MapKit.h>
+#import <AMapFoundationKit/AMapFoundationKit.h>
+#import <AMapLocationKit/AMapLocationKit.h>
 
 #endif /* FastContact_Header_h */

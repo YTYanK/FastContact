@@ -37,15 +37,10 @@ typedef NS_ENUM(NSInteger, NetMethod){
 // 自构建共享对象
 + (NetRequestClss *)sharedNetRequestClss;
 
-
-
-
-//+ (void)netReachabilityForReturnBlock:(ReturnValueBlock)block;
 #pragma mark - <(￣︶￣)↗[GO!]
 
 
-+ (void)requestWithUrl:(NSString *)url requestWithParameters:(NSDictionary *)par method:(NetMethod)met returnSuccess:(void(^)(id objs, int status, NSString *mag))success returnError:(void(^)(NSString *err))err;
-
++ (void)requestWithUrl:(NSString *)url requestWithParameters:(NSDictionary *)par uploadFile:(NSDictionary*)fileDic method:(NetMethod)met returnSuccess:(void(^)(id objs, int status, NSString *mag))success returnError:(void(^)(NSString *err))err;
 
 
 @end

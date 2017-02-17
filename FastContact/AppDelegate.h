@@ -15,6 +15,8 @@
 
 @property (readonly, strong) NSPersistentContainer *persistentContainer;
 
+@property (strong, nonatomic) AMapLocationManager *locationManager;
+
 - (void)saveContext;
 
 

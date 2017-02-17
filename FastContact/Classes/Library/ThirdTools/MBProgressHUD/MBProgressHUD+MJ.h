@@ -10,7 +10,7 @@
 @interface MBProgressHUD (MJ)
 #pragma  mark - 自定义方法
 + (void)yty_showErrorWithTitle:(NSString *)title detailsText:(NSString *)details toView:(UIView *)view;
-
++ (void)yty_showTitle:(NSString *)title detailsText:(NSString *)details toView:(UIView *)view  err:(BOOL)isErr;
 
 
 + (void)showSuccess:(NSString *)success toView:(UIView *)view;

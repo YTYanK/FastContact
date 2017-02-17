@@ -9,11 +9,14 @@
 #import "HomeVC.h"
 #import "HomeHeader.h"
 #import "WorkOrderVC.h"
+#import "UserInfoModel.h"
 
 @interface HomeVC ()<ContentViewDelegate,HeadViewDelegate>
 {
     id dataTransfer;
     NSString *homeInletSign;
+    NSString *_navigationTitle;
+
 }
 @end
 
@@ -26,11 +29,13 @@
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self updateHeadViewData];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [self updateHeadViewData];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
@@ -40,30 +45,61 @@
 }
 
 
-
-
-
+- (void)updateHeadViewData {
+        NSDictionary  *inter = FC_DIC(@"Account/UserInfo",kFC_URL,[NSNumber numberWithInt:1],kFC_NetMethod,[NSNumber numberWithInt:1],kFC_Trans,nil);
+        NSDictionary  *param = FC_DIC([NSUD objectForKey:kFC_LoginAccount],@"UserName",[NSUD objectForKey:kFC_LoginPass],@"Pwd",nil);
+        [InterfaceViewModel sharedInterfaceViewModel].loading = true;
+        
+        [InterfaceViewModel requestWithObj:self Interface:inter andParam:param success:^(id model) {
+            UserInfoModel *user = model;
+            
+            self.headView.nameVlue.text = user.name;
+            self.headView.numberVlue.text = user.jobnumber;
+            self.headView.ascriptionVlue.text = user.businessunitidname;
+            self.headView.stagnationPointVlue.text = user.clocklocationsidname;
+            self.headView.isonline = [user.isonline intValue];
+            
+            
+            
+        } failure:^(NSString *mag) {
+            [MBProgressHUD yty_showErrorWithTitle:nil detailsText:mag toView:self.view];
+        }];
+}
 
 - (void)updateHomeView {
-
     [self removeBackButtonItemText];
     [self updateHeadView];
     [self updateContentView];
-   
 }
 // 去除导航条返回的文字
 - (void)removeBackButtonItemText {
     UIBarButtonItem* barButtonItem = [[UIBarButtonItem alloc]init];
+    
     UIImage *backButtonImage = [[UIImage imageNamed:@"back_left.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 30, 0, 0)];
     [[UIBarButtonItem appearance] setBackButtonBackgroundImage:backButtonImage forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(NSIntegerMin, NSIntegerMin) forBarMetrics:UIBarMetricsDefault];
+//    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(NSIntegerMin, NSIntegerMin) forBarMetrics:UIBarMetricsDefault];
+    
+    
     self.navigationItem.backBarButtonItem = barButtonItem;
     
+    
+    
+    
+
+//    UIButton *backButton =[UIButton  buttonWithType:UIButtonTypeCustom];
+//    [backButton setBackgroundImage:[UIImage imageNamed:@"back_left.png"] forState:UIControlStateNormal];
+//    backButton.frame=CGRectMake(0, 0, 44, 44);
+//    [backButton addTarget:self action:@selector(leftAction) forControlEvents:(UIControlEventTouchUpInside)];
+//    UIBarButtonItem*item=[[UIBarButtonItem alloc]initWithCustomView:backButton];
+//    UIBarButtonItem *navSpace = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+//    navSpace.width = - 15;
+//    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:navSpace,item, nil];
     
 }
 
 - (void)updateHeadView {
     self.headView.delegate = self;
+    self.headView.vc = self;
     self.headView.frame = CGRectMake(0, 20, SCREEN_WIDTH, 150);
     [self.view addSubview:self.headView];
 }
@@ -76,40 +112,49 @@
 
 #pragma mark - HeadViewDelegate
 - (void)headViewPortraitForImageView:(UIImageView *)view {
-    PersonalVC *personal = [[PersonalVC alloc] initWithNibName:@"PersonalVC" bundle:nil];
-    [self.navigationController pushViewController:personal animated:YES];
+  //  PersonalVC *personal = [[PersonalVC alloc] initWithNibName:@"PersonalVC" bundle:nil];
+  //  [self.navigationController pushViewController:personal animated:YES];
 }
 
 ///TODO:需要优化第一个入口
 #pragma mark - ContentViewDelegate
 - (void)buttonListClickWithView:(UIView *)view forButton:(UIButton *)sender {
-    if (sender.tag == 1) {
-          homeInletSign = kFC_OM_Sign;
-      // 判断用于缓解重复请求的压力
-         // if ([NSUD objectForKey:homeInletSign] != nil) {
-            
-             [self performSegueWithIdentifier:@"goToPublic" sender:self];
-    /*   // }else {
-            NSDictionary  *inter = FC_DIC(@"Common/BaseList",kFC_URL,[NSNumber numberWithInt:-1],kFC_NetMethod,[NSNumber numberWithInt:2],kFC_Trans,nil);
-            NSDictionary  *param = FC_DIC([NSNumber numberWithInt:1],@"Page",[NSNumber numberWithInt:100],@"PageSize",@"WorkCategory1",@"Entity",@"WorkIndex",@"FieldName",nil);
-            [InterfaceViewModel sharedInterfaceViewModel].loading = true;
-            [InterfaceViewModel requestWithObj:self Interface:inter andParam:param success:^(id model) {
-                dataTransfer = model;
-                [self performSegueWithIdentifier:@"goToPublic" sender:self];
+    
+    _navigationTitle = sender.titleLabel.text;
+    if (self.headView.isonline == 1) {
+        if (sender.tag == 1) {
+            homeInletSign = kFC_OM_Sign;
+            // 判断用于缓解重复请求的压力
+            if ([NSUD objectForKey:homeInletSign] != nil) {
                 
-              //  [NSUD setObject:@"goTo" forKey:homeInletSign];
-            } failure:^(NSString *mag) {
-                [MBProgressHUD yty_showErrorWithTitle:nil detailsText:mag toView:self.view];
-            }];
-   
-       // }*/
-    
+                [self performSegueWithIdentifier:@"goToPublic" sender:self];
+            }else {
+                NSDictionary  *inter = FC_DIC(@"Common/BaseList",kFC_URL,[NSNumber numberWithInt:-1],kFC_NetMethod,[NSNumber numberWithInt:2],kFC_Trans,nil);
+                NSDictionary  *param = FC_DIC([NSNumber numberWithInt:1],@"Page",[NSNumber numberWithInt:100],@"PageSize",@"WorkCategory1",@"Entity",@"WorkIndex",@"FieldName",nil);
+                [InterfaceViewModel sharedInterfaceViewModel].loading = true;
+                [InterfaceViewModel requestWithObj:self Interface:inter andParam:param success:^(id model) {
+                    dataTransfer = model;
+                    [self performSegueWithIdentifier:@"goToPublic" sender:self];
+                    
+                    //  [NSUD setObject:@"goTo" forKey:homeInletSign];
+                } failure:^(NSString *mag) {
+                    [MBProgressHUD yty_showErrorWithTitle:nil detailsText:mag toView:self.view];
+                }];
+                
+            }
+            
+        }
+        
+        if (sender.tag == 2) {
+            homeInletSign = kFC_TM_Sign;
+            [self performSegueWithIdentifier:@"goToPublic" sender:self];
+        }
+    }else {
+      [MBProgressHUD yty_showErrorWithTitle:nil detailsText:@"请签入后再进行操作" toView:self.view];
     }
     
-    if (sender.tag == 2) {
-        homeInletSign = kFC_TM_Sign;
-        [self performSegueWithIdentifier:@"goToPublic" sender:self];
-    }
+    
+
     
     if (sender.tag == 5) {
         homeInletSign = kFC_LEA_Sign;
@@ -143,8 +188,6 @@
         
     }
     
-  
-    
 }
 #pragma mark - Navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -159,6 +202,7 @@
         id vc = segue.destinationViewController;
         [vc setValue:dataTransfer forKey:@"baseList"];
         [vc setValue:homeInletSign forKey:@"inletSign"];
+        [vc setValue:_navigationTitle forKey:@"navTitle"];
     }
 }
 
